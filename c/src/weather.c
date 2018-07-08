@@ -15,31 +15,9 @@ int main()
         {2016, 1.4, 3.2, 2.2, 2.1, 1.6, 2.7, 3.1, 4.1, 1.1, 2.1, 3.1, 1.0},
         {2017, 1.2, 3.1, 1.4, 2.0, 1.7, 2.1, 3.7, 4.0, 1.2, 2.3, 3.3, 1.8},
     };
-    // { {year, sum, avg}, {...} }
-    float yearly_averages[5][3] = {
-        {0, 0, 0},
-        {0, 0, 0},
-        {0, 0, 0},
-        {0, 0, 0},
-        {0, 0, 0}
-    }; 
     
-    // { {month, sum, avg}, {...} }
-    float monthly_averages[13][3] = {
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}, 
-        {0, 0, 0}
-    };
+    float yearly_averages[5][3];  // { {year, sum, avg}, {...} }
+    float monthly_averages[13][3];  // { {month, sum, avg}, {...} }
 
     char month_index[13][5] = {"None", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
@@ -47,6 +25,8 @@ int main()
     /* Loop over Years */
 
     // display the raw data and populate yearly_averages array
+    printf("raw rainfall data\n");
+
     for (y = 0; y < years; y++)
     {
         float year_sum = 0;
@@ -58,7 +38,7 @@ int main()
             {
                 printf("%.2f ", rainfall_data[y][m]);
                 year_sum += rainfall_data[y][m]; // summ for avg
-                printf("year_sum: %f\n", year_sum);
+                //printf("year_sum: %f\n", year_sum);
             }
         }
 
@@ -69,36 +49,34 @@ int main()
         printf("\n");
     }
 
+    printf("\n");
     printf("year | sum | avg\n");
     for (x = 0; x < years; x++)
     {
-        printf("%.2f %.2f %.2f \n", yearly_averages[x][0],
+        printf("%i %.2f %.2f \n", (int) yearly_averages[x][0],
                 yearly_averages[x][1], yearly_averages[x][2]);
     }
 
     /* Loop over Months */
-    int m1;
-    int y1;
-    for (m1 = 1; m1 < months + 1; m1++)
+    for (m = 1; m < months + 1; m++)
     {
         float monthly_sum = 0; // reset sum
-        for (y1 = 0; y1 < years; y1++)
+        for (y = 0; y < years; y++)
         {
-            monthly_sum += rainfall_data[y1][m1];
+            monthly_sum += rainfall_data[y][m];
         }
-        monthly_averages[m1][0] = m1;
-        //monthly_averages[m1][1] = monthly_sum;
-        monthly_averages[m1][2] = monthly_sum / years;
+        monthly_averages[m][0] = m;
+        monthly_averages[m][1] = monthly_sum;
+        monthly_averages[m][2] = monthly_sum / years;
     }
 
 
+    printf("\n");
     printf("month | sum | avg\n");
-    int m2;
-    for (m2 = 1; m2 < months + 1; m2++)
+    for (m = 1; m < months + 1; m++)
     {
-        //printf("%s %.2f %.2f \n", month_index[(int) monthly_averages[m][0]],
-        printf("%i %.2f %.2f \n", (int) monthly_averages[m2][0],
-                yearly_averages[m2][1], yearly_averages[m2][2]);
+        printf("%s %.2f %.2f \n", month_index[(int) monthly_averages[m][0]],
+                monthly_averages[m][1], monthly_averages[m][2]);
     }
 
 
