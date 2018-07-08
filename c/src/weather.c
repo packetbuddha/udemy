@@ -8,6 +8,9 @@ int main()
     int m = 0;
     int x = 0;
 
+    float yearly_agg_sum;
+    float yearly_agg_avg;
+
     float rainfall_data[5][13] = {
         {2013, 1.5, 3.6, 2.6, 2.4, 1.5, 2.3, 3.6, 4.3, 1.2, 2.1, 3.2, 1.9},
         {2014, 1.3, 3.3, 2.3, 2.6, 1.3, 2.5, 3.2, 4.2, 1.3, 2.0, 2.3, 1.6},
@@ -25,7 +28,8 @@ int main()
     /* Loop over Years */
 
     // display the raw data and populate yearly_averages array
-    printf("raw rainfall data\n");
+    printf("year | jan | feb | mar | apr | may | jun | jul | aug | sept | oct " 
+        "| nov | dec\n");
 
     for (y = 0; y < years; y++)
     {
@@ -45,12 +49,16 @@ int main()
         yearly_averages[y][0] = rainfall_data[y][0]; // add year
         yearly_averages[y][1] = year_sum;  // yearly sum 
         yearly_averages[y][2] = year_sum / months; // year avg
+        yearly_agg_sum += year_sum;
 
         printf("\n");
     }
 
-    printf("\n");
-    printf("year | sum | avg\n");
+    yearly_agg_avg = yearly_agg_sum / years;
+
+    printf("\nyearly aggregated average: %.2f\n", yearly_agg_avg);
+
+    printf("\nyear | sum | avg\n");
     for (x = 0; x < years; x++)
     {
         printf("%i %.2f %.2f \n", (int) yearly_averages[x][0],
@@ -78,7 +86,6 @@ int main()
         printf("%s %.2f %.2f \n", month_index[(int) monthly_averages[m][0]],
                 monthly_averages[m][1], monthly_averages[m][2]);
     }
-
 
 
     return 0;
