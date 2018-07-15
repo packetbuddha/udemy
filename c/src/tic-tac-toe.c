@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <conio.h>
 
 #define COLS 3
 #define ROWS 4 // +1 for '\0' terminator

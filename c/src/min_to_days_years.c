@@ -3,7 +3,7 @@
 int main() {
     int minutes;
     int mins_in_day = 60 * 24; // 1440
-    int mins_in_year = mins_in_day * 364.25; // 524520
+    int mins_in_year = mins_in_day * 365.25; // 525960 
     double days;
     double years; 
 
