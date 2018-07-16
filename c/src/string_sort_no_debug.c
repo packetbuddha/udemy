@@ -36,7 +36,6 @@ int main(void)
 
     // initialize pointers
     for (i = 0; i < NUMSTR; i++)
-        strings_p[i] = NULL;
         sorted[i] = NULL;
 
     // populate strings_p
@@ -49,13 +48,6 @@ int main(void)
     {
         sorted[sorted_index] = get_next(strings_p, NUMSTR, 0);
         sorted_index--;
-      
-        // DEBUG 
-        if (debug == 1)
-        { 
-            for (j = 0; j < NUMSTR; j++)
-                printf("%s : %p\n", sorted[j], sorted[j]);
-        }
     }
         // Print final results
         for (j = 0; j < NUMSTR; j++)
@@ -76,50 +68,19 @@ char* get_next(char *strings_p[NUMSTR], int NUMSTR, int index)
     {
         if (strings_p[i] != NULL)
         {
-            // DEBUG
-            if (debug == 1)
-            {
-                printf("working on: %s\n", strings_p[i]);
-                printf("strings_p[i][index]: %d vs ascii: %d\n\n\n", \
-                        strings_p[i][index], ascii);
-            }
             if ((int) strings_p[i][index] > ascii)
             {
-                // DEBUG
-                if (debug == 1)
-                {
-                    printf("str_p in < : %p, strings_p[i][index]: %d > ascii:"
-                            "%d\n\n\n", str_p, strings_p[i][index], ascii);
-                    printf("%s : %d, %p\n", strings_p[i], strings_p[i][index],
-                            &strings_p[i][index]);
-                }
-
                 ascii = strings_p[i][index]; // ascii value of CHAR
                 str_p = strings_p[i];  // pointer to winning string
             }
             else if ((int) strings_p[i][index] == ascii)
             {
-                // DEBUG 
-                if (debug == 1)
-                {
-                    printf("\n** We have a duplicate! **\n");
-                    printf("str_p in < : %p, strings_p[i][index]: %d == ascii: "
-                            "%d\n", str_p, strings_p[i][index], ascii);
-                }
-
                 char *sub_strings_p[2] = { str_p, strings_p[i] }; 
 
                 str_p = get_next(sub_strings_p, 2, (index + 1));
-
-                // DEBUG
-                if (debug == 1)
-                    printf("str_p in = : %p\n\n\n", str_p);
             }
         }
     }
-    // DEBUG
-    if (debug == 1)
-        printf("outside loop: ascii: %d, str_p: %p\n", ascii, str_p);
 
     // remove the winner from list of eligibles
     for (j = 0; j < NUMSTR; j++)
